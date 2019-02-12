@@ -1,0 +1,17 @@
+{
+    "appli": {
+        "controller":"Bonobo",
+        "action":"index",
+        "lang":"fr"
+    },
+    "db": {
+        "name":"bonobo",
+        "host":"localhost",
+        "user":"bonobo",
+        "password":"bonobo"
+    },
+    "twig_extension": [
+        "Php4ever",
+        "Twig_Extension_Debug"
+    ]
+}
