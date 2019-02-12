@@ -1,0 +1,109 @@
+{% extends 'template.twig' %}
+{% import 'Form.twig' as form %}
+{% block head %}
+    <title>Bonobo food</title>
+{% endblock %}
+
+{% block link %}
+    <li class="breadcrumb-item " aria-current="page">Panneau d'administration</li>
+    <li class="breadcrumb-item " aria-current="page">Produits</li>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md">
+            <div class="card">
+                <div class="card-header bg-info">
+                    <h1><strong>Liste des produits</strong><a href="./admin_insert.html" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-plus"></span> Ajouter</a></h1>
+                </div>
+                
+                <div class="card-body">
+                {{ form.input("searchajax","Search") }}
+                    <table class="table table-striped table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Date de création</th>
+                      <th>Nom</th>
+                      <th>Description</th>
+                      <th>Prix</th>
+                      <th>Catégorie</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  
+                  <tbody id="table_product">
+                  {% for ligne in products %}
+                    <tr>
+                    <td>{{ ligne.DATE_CREATION }}</td>
+                    <td>{{ ligne.NOM }}</td>
+                    <td>{{ ligne.DESCRIPTION }}</td>
+                    <td>{{ ligne.PRIX }}</td>
+                    <td>{{ ligne.CATEGORIE }}</td>
+                    <td>
+                    <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#view" data-whatever="{{ ligne.ID_PRODUIT }}">
+                        <i class="far fa-eye"></i><span class="d-sm-none"> Voir</span>
+                    </button>
+                    
+                    <a class="btn btn-primary" href="./admin_edit_{{ ligne.ID_PRODUIT }}.html"><i class="far fa-edit"></i></span> <span class="d-sm-none">Modifier</span></a>
+                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete" data-whatever="{{ ligne.ID_PRODUIT }}">
+                        <i class="far fa-trash-alt"></i> <span class="d-sm-none">Supprimer</span></a>
+                    </button>
+                    </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade bd-example-modal-lg" id="view" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title" id="p_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card border-info" >
+                        <img class="card-img-top" id="p_image" alt="Card image cap">
+                        <hr class="bg-info"/>
+                        <div class="card-body">
+                            <div id="p_price" class="price"></div>
+                            <p class="card-text text-info" id="p_description"></p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bd-example-modal-lg" id="delete" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title" >Suppression d'un produit</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card border-info" >
+                        <div class="card-body">
+                            <p class="card-text text-info">Etes vous sur de vouloir supprimer ce produit ?</p>
+                            <a href="" id="delete_link" class="btn btn-danger">Effacer</a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+<script src="./project/js/admin_index.js"></script>
+{% endblock %}

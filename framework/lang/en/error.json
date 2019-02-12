@@ -1,0 +1,8 @@
+{
+    "ActionNotFound":"Undefined action for this controller",
+    "FileNotFound":"File not found",
+    "ConnectionFail":"Connection fail: ",
+    "FailExecRequest":"Problem to execute this request:  ",
+    "ParameterNotFound":"Parameter not found in this request: "
+    
+}

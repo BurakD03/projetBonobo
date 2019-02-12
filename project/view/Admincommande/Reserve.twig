@@ -1,0 +1,39 @@
+{% extends 'template.twig' %}
+{% import 'Form.twig' as form %}
+{% block head %}
+    <title>Bonobo food</title>
+{% endblock %}
+
+{% block link %}
+    <li class="breadcrumb-item " aria-current="page">Panneau d'administration</li>
+    <li class="breadcrumb-item " aria-current="page">View command</li>
+{% endblock %}
+
+{% block content %}
+        <div class="col-md-12">
+            <div class="row ligne">
+                {% for p in tab %}
+                    <div class="col-md-4">
+                        <div class="card border-info" >
+                        <div class="card-header bg-info"><h5 class="card-title text-light">Reservation n°{{ p.ID_RESERVATION }}</h5></div>
+                        
+                            <div class="card-body">
+                                <p class="card-text text-info">
+                                    Client: {{ p.NOM }} {{ p.PRENOM }}<br/>
+                                    Date de reservation: {{ p.DATE_RESERVATION }}<br/>
+                                    Nombre: {{ p.NB }}<br/>
+                                    Commentaire: {{ p.COMMENTAIRE }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% if loop.index is divisible by(3) %}
+                        </div><div class="row ligne">
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

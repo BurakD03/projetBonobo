@@ -1,0 +1,32 @@
+{% macro input(name,label,value = null,options = []) %}
+    <div class="{{ options.type=="file"?"custom-file":"form-group" }} {{ options.class }}">
+        <label for="{{ name }}" class="{{ options.type=="file"?"custom-file-label":"" }}"><i id="{{ name }}_suc" class="fa fa-check d-none text-success"></i><i id="{{ name }}_err" class="fa fa-times d-none text-danger"></i>{{ label }}</label>
+        <input type="{{ options.type ?: 'text' }}" step="{{ options.type == "number" ? "0.01" : "" }}" class="{{ options.type=="file"?"custom-file-input":"form-control" }}" id="{{ name }}" name="{{ name }}" value="{{ value }}" placeholder="{{ label }}"/>
+    </div>
+ {% endmacro %}
+
+{% macro textarea(name,label,value = null,options = []) %}
+    <div class="form-group {{ options.class }}">
+        <label for="{{ name }}">{{ label }}</label>
+        <textarea class="form-control" id="{{ name }}" name="{{ name }}"rows="3">{{ value }}</textarea>
+    </div>
+{% endmacro %}
+
+{% macro select(name,label,value = [],options = []) %}
+    <div class="form-group {{ options.class }}">
+    <i id="{{ name }}_suc" class="fa fa-check d-none text-success"></i><i id="{{ name }}_err" class="fa fa-times d-none text-danger"></i>
+        <label for="{{ name }}">{{ label }}</label>        
+        <select class="form-control" id="{{ name }}" name="{{ name }}">
+        {% for key,ligne in value %}
+            <option value= {{ key }} {{ options.selected== ligne ?"selected":"" }} >{{ ligne }}</option>
+        {% endfor %}
+        </select>
+    </div>
+{% endmacro %}
+
+{% macro check(name,label,value = null,options = []) %}
+    <div class="form-group form-check {{ options.class }}">
+        <input type="checkbox" class="form-check-input" id="{{ name }}" name="{{ name }}">
+        <label class="form-check-label" for="{{ name }}">{{ label }}</label>
+    </div>
+ {% endmacro %}

@@ -1,0 +1,91 @@
+{% extends 'template.twig' %}
+
+{% block head %}
+    <title>Bonobo food</title>
+{% endblock %}
+
+{% block link %}
+    <li class="breadcrumb-item" aria-current="page">Home</li>
+{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-2">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header bg-info text-light">
+                    <h2><i class="fa fa-bars"></i> Notre carte</h2>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                    {% for ligne in category %}
+                    <a class="border-bottom border-info {% if product[0].ID_CATEGORIE == ligne.ID_CATEGORIE %} text-white {% endif %}" href="./bonobo_index_{{ ligne.ID_CATEGORIE }}.html">
+                        <li class="list-group-item 
+                        
+                        {% if product[0].ID_CATEGORIE == ligne.ID_CATEGORIE %} bg-primary {% endif %}
+                        ">
+                            {{ ligne.NOM }}
+                        </li>
+                    </a>
+                    
+                    {% endfor %}
+                    <li class="list-group-item nav-item">
+                        <a class="nav-link" href="./bonobo_meal.html">Menu</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="row ligne">
+                {% for p in product %}
+                    <div class="col-md-4">
+                        <div class="card border-info" >
+                        <div class="card-header bg-info"><h5 class="card-title text-light" id="p_{{ p.ID_PRODUIT}}_name">{{ p.NOM }}</h5></div>
+                            <img class="card-img-top" src="{{ p.IMAGE }}" alt="Card image cap">
+                            <hr class="bg-info"/>
+                            <div class="card-body">
+                                <div id="p_{{ p.ID_PRODUIT }}_price" data-price="{{ p.PRIX }}" class="price">{{ ( p.PRIX )|number_format(2, '.', ' ') }} €</div>
+                                <p class="card-text text-info">{{ p.DESCRIPTION }}</p>
+                                <a href="#" id="p_{{ p.ID_PRODUIT }}" class="btn btn-success buttonadd">Ajouter</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% if loop.index is divisible by(3) %}
+                        </div><div class="row ligne">
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header bg-info text-light">
+                    <h2 ><i class="fa fa-cart-plus"></i> Mon Panier</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <ul class="list-group list-group-flush" id="panier_ligne"></ul>
+                        <ul class="list-group list-group-flush" id="menu_ligne"></ul>
+                    </p>
+                    <div class="alert alert-secondary" role="alert">
+                        Total: <span id="panier_montant"></span> 
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-success" href="commande_createclient.html"><i class="fa fa-check"></i></a>
+                    <button type="button" class="btn btn-warning buttonclear"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+   <ul class="list-group">
+        {% for ligne in tab %}
+            <li class="list-group-item">
+                {{ ligne.name }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block javascript %}
+<script src="./project/js/panier.js"></script>
+<script src="./project/js/index.js"></script>
+{% endblock %}

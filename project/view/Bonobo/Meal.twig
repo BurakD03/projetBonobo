@@ -1,0 +1,130 @@
+{% extends 'template.twig' %}
+
+{% block head %}
+    <title>Bonobo food - Menu</title>
+{% endblock %}
+
+{% block link %}
+    <li class="breadcrumb-item" aria-current="page">Home</li>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-2">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header bg-info text-light">
+                    <h2><i class="fa fa-bars"></i> Notre carte</h2>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                    {% for ligne in category %}
+                    <a class="border-bottom border-info" href="./bonobo_index_{{ ligne.ID_CATEGORIE }}.html">
+                        <li class="list-group-item">
+                            {{ ligne.NOM }}
+                        </li>
+                    </a>
+                    {% endfor %}
+                    <li class="list-group-item nav-item bg-primary">
+                        <a class="nav-link text-white" href="./bonobo_meal.html">Menu</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="row ligne">
+                {% for m in menu %}
+                    <div class="col-md-4">
+                        <div class="card border-info" >
+                        <div class="card-header bg-info"><h5 class="card-title text-light" id="m_{{ m.ID_MENU}}_name">{{ m.NOM }}</h5></div>
+                            <img class="card-img-top" src="{{ m.IMAGE }}" alt="Card image cap">
+                            <hr class="bg-info"/>
+                            <div class="card-body">
+                                <p id="m_{{ m.ID_MENU }}_price" data-price="{{ m.PRIX }}">{{ m.PRIX | number_format(2, '.', ' ') }} €</p>
+                                <p class="card-text text-info">{{ m.DESCRIPTION }}</p>
+                                <button type="button" class="btn btn-success buttonadd" data-toggle="modal" data-target="#modal{{m.ID_MENU}}">
+                                    Ajouter
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% if loop.index is divisible by(3) %}
+                        </div><div class="row ligne">
+                    {% endif %}
+                    <div class="modal fade" id="modal{{m.ID_MENU}}" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalTitle">{{m.NOM}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Entrée
+                                    <select class="form-control" id="entree{{m.ID_MENU}}">
+                                    {% for p in m.ENTREES %}
+                                        <option value={{p.NOM}}>{{p.NOM}}</option>
+                                    {% endfor %}
+                                    </select><br/>
+                                    Plat
+                                    <select class="form-control" id="plat{{m.ID_MENU}}">
+                                    {% for p in m.PLATS %}
+                                        <option value={{p.NOM}}>{{p.NOM}}</option>
+                                    {% endfor %}
+                                    </select><br/>
+                                    Dessert
+                                    <select class="form-control" id="dessert{{m.ID_MENU}}">
+                                    {% for p in m.DESSERTS %}
+                                        <option value={{p.NOM}}>{{p.NOM}}</option>
+                                    {% endfor %}
+                                    </select><br/>
+                                    Boisson
+                                    <select class="form-control" id="boisson{{m.ID_MENU}}">
+                                    {% for p in m.BOISSONS %}
+                                        <option value={{p.NOM}}>{{p.NOM}}</option>
+                                    {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Retour</button>
+                                    <button type="button" class="btn btn-success" onClick="submitMenu({{m.ID_MENU}})">Ajouter</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header bg-info text-light">
+                    <h2 ><i class="fa fa-cart-plus"></i> Mon Panier</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <ul class="list-group list-group-flush" id="panier_ligne"></ul>
+                        <ul class="list-group list-group-flush" id="menu_ligne"></ul>
+                    </p>
+                    <div class="alert alert-secondary" role="alert">
+                        Total: <span id="panier_montant"></span> 
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-success" href="commande_createclient.html"><i class="fa fa-check"></i></a>
+                    <button type="button" class="btn btn-warning buttonclear"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+   <ul class="list-group">
+        {% for ligne in tab %}
+            <li class="list-group-item">
+                {{ ligne.name }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block javascript %}
+<script src="./project/js/panier.js"></script>
+<script src="./project/js/meal.js"></script>
+{% endblock %}

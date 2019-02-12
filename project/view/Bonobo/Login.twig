@@ -1,0 +1,36 @@
+{% extends 'template.twig' %}
+
+{% import 'Form.twig' as form %}
+
+{% block head %}
+    <title>Bonobo food - Login</title>
+{% endblock %}
+
+{% block link %}
+    <li class="breadcrumb-item active" aria-current="page">login</li>
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="row justify-content-center">
+    
+        <div class="jumbotron bg-light">
+            <h1 class="display-4">Connexion</h1>
+            {% if err != "" %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>{{ err }}</strong>
+                </div>
+            {% endif %}
+            <form id="user_form" action="./bonobo_checkedlogin.html" method="post">
+                {{ form.input("user_login","Pseudo") }}
+                {{ form.input("user_pass","Password",null,{type:"password"}) }}
+                <hr class="my-4" />
+                <div class="form-actions">
+                    <button type="submit" id="button_user" class="btn btn-success"><i class="fa fa-check"></i> Connexion</button>
+                    <a class="btn btn-primary" href="./bonobo_index.html"><i class="fa fa-arrow-left"></i> Retour</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

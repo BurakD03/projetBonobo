@@ -1,0 +1,78 @@
+{% extends 'template.twig' %}
+{% import 'Form.twig' as form %}
+{% block head %}
+    <title>Bonobo food</title>
+{% endblock %}
+
+{% block link %}
+    <li class="breadcrumb-item active" aria-current="page">Home</li>
+{% endblock %}
+
+
+{% block content %}
+<div class="card border-info" >
+  <div class="card-header bg-info"><h5 class="card-title text-light">Récapitulatif de votre commande </h5></div>
+  <div class="card-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Produit</th>
+          <th scope="col">Prix</th>
+          <th scope="col">Quantité</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody id="liste_produits"></tbody>
+    </table>
+            
+  </div>
+</div>
+<br/>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card border-info" >
+      <div class="card-header bg-info"><h5 class="card-title text-light">Vos coordonnées </h5></div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+              <span id="nom_client"></span> <span id="prenom_client"></span>
+              <p id="email_client"></p>
+              <p id="tel_client"></p>
+          </div>
+          <div class="col-md-6">
+              <p id='typecomm'></p>
+              <span id="num_adresse"></span> <span id="adresse"></span>
+              <p id="codepostal"></p>
+              <p id="ville"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card border-info" >
+      <div class="card-header bg-info"><h5 class="card-title text-light">Votre commande </h5></div>
+      <div class="card-body">
+        <p>Commande pour le <span class="float-right"><span id="daterec_commande" ></span> à <span id="heure_commande" ></span></span></p>
+        <p>Mode de paiement <select class="float-right" id="paiement">
+                              <option value='1'>Carte</option>
+                              <option value='2'>Cheque</option>
+                              <option value='3'>Espece</option>
+                            <select>
+        </p>
+        <p>Total <span id="total_commande" class="float-right"></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+{{ form.textarea("commande_commentaire"," Laissez votre commentaire ...",null,{class:"col-md-12"}) }}
+
+
+<button class="btn btn-success" id="valide_panier">valider</button>
+{% endblock %}
+
+{% block javascript %}
+<script src="./project/js/panier.js"></script>
+<script src="./project/js/commande_recap.js"></script>
+<script src="./project/js/commande_index.js"></script>
+{% endblock %}

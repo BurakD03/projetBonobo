@@ -1,0 +1,7 @@
+{
+    "ActionNotFound":"Action  non définie pour ce contrôleur",
+    "FileNotFound":"fichier introuvable",
+    "ConnectionFail":"problème de connexion a la base de données: ",
+    "FailExecRequest":"problème pour executer cette requête:  ",
+    "ParameterNotFound":"Paramètre absent de la requête: "  
+}

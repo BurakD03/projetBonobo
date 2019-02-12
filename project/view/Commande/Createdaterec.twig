@@ -1,0 +1,34 @@
+{% extends 'template.twig' %}
+{% import 'Form.twig' as form %}
+{% block head %}
+    <title>Bonobo food</title>
+{% endblock %}
+
+{% block link %}
+    <li class="breadcrumb-item active" aria-current="page">Horaire</li>
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card border-info" >
+            <div class="card-header bg-info"><h5 class="card-title text-light">Choisissez vos horaires </h5></div>
+            <div class="card-body">
+                <form>
+                {{ form.input("daterec","Choisir une date",null,{type:"date"})}}
+                {{ form.input("heurerec","Choisir une heure h:m:s",null,{type:"text"})}}
+                {{ form.check("livraison", "Livraison", true, { type: "checkbox" }) }}
+                <button type="button" id="button_user" class="btn btn-success" onclick="saveDateRec()"><i class="fa fa-check"></i> Suivant</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script src="./project/js/panier.js"></script>
+<script src="./project/js/createdaterec.js"></script>
+<script src="./project/js/commande.js"></script>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'template.twig' %}
+
+{% import 'Form.twig' as form %}
+
+{% block head %}
+    <title>Bonobo food</title>
+{% endblock %}
+
+{% block link %}
+    <li class="breadcrumb-item active" aria-current="page">Home</li>
+{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <h1> Modifier un produit </h1>
+            <form id="product_form" action="./admin_modifyproduct.html" method="post" enctype="multipart/form-data">
+                   
+                {{ form.input("product_id","",tab.ID_PRODUIT,{class:"d-none"}) }}
+                {{ form.input("product_name","Nom du produit",tab.NOM) }}
+                {{ form.input("product_description","Description",tab.DESCRIPTION) }}
+                {{ form.input("product_price","Prix",tab.PRIX,{type:"number"}) }}
+                {{ form.select("product_categorie","Categorie", liste,{selected:tab.categ} )  }}
+                <p>
+                    <span>Image: </span>
+                    <span class="font-italic">{{ tab.IMAGE }}</span>
+                </p>
+                {{ form.input("product_img","Image",tab.IMAGE,{type:"file"}) }}
+                <span class="font-weight-light text-secondary">( jpg, jpeg, png, gif )</span>
+                <br /><br />
+                <div class="form-actions">
+                    <button type="submit" id="startForm" class="btn btn-success"><i class="fa fa-pencil"></i> Modifier</button>
+                    <a class="btn btn-primary" href="./admin_index.html"><i class="fa fa-arrow-left"></i> Retour</a>
+                </div>
+                    
+            </form>
+           
+        </div>
+        <div class="col-md-6 d-sm-none">
+            <div class="card thumbnail">
+                <img class="card-img-top" src="{{ tab.IMAGE }}" alt="Card image cap" />
+                <div class=":price">{{ ( tab.PRIX )|number_format(2, '.', ' ') }} €</div>
+                <div class="card-body ">
+                    <h5 class="card-title">{{ tab.NOM }}</h5>
+                    <p class="card-text">{{ tab.DESCRIPTION }}</p>
+                    <a href="./bonobo_index.html" class="btn btn-order" role="button"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Commander</a>
+                </div>
+            </div>
+        </div>
+</div> 
+{% endblock %}

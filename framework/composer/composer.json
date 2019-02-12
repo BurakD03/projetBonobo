@@ -1,0 +1,16 @@
+{
+    "name": "ac/php4ever",
+    "description": "framework php mvc",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "alexandre charles",
+            "email": "charles.alexandre.charles@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig":"^2.0",
+        "michelf/php-markdown":"^1.8"
+    }
+}

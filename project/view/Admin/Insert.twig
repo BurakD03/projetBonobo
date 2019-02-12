@@ -1,0 +1,47 @@
+{% extends 'template.twig' %}
+
+{% import 'Form.twig' as form %}
+
+{% block head %}
+    <title>Bonobo food</title>
+{% endblock %}
+
+{% block link %}
+    <li class="breadcrumb-item active" aria-current="page">Home</li>
+{% endblock %}
+
+
+{% block content %}
+    <div class="row justify-content-center">
+    
+        <div class="jumbotron bg-light">
+            <h1 class="display-4">Ajouter un produit</h1>
+            {% if err != "" %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>{{ err }}</strong>
+                </div>
+            {% endif %}
+
+            <form id="insert_form" action="./admin_checkedinsert.html" method="post" enctype="multipart/form-data">
+                {{ form.input("produit_libelle", "Nom") }}
+                {{ form.input("produit_description", "Description") }}
+               {{ form.input("produit_prix","Prix",null,{type:"number"}) }}
+                <div class="form-group">
+                    <label for="categories">Catégorie</label>
+                    
+                    <select class="form-control" id="categorie" name="categorie">
+                    {% for l in categories %} 
+                      <option value="{{ l.ID_CATEGORIE }}"  {{ options.selected== l ?"selected":""  }} >{{ l.NOM }}</option>
+                    {% endfor %}
+                    </select> 
+                </div>
+                {{ form.input("produit_image","Image",null,{type:"file"}) }}
+                <hr class="my-4" />
+                <div class="form-actions">
+                    <button type="submit" id="button_user" class="btn btn-success"><i class="fa fa-check"></i> Valider</button>
+                    <a class="btn btn-primary" href="./admin_index.html"><i class="fa fa-arrow-left"></i> Retour</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

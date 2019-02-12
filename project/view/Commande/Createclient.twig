@@ -1,0 +1,63 @@
+{% extends 'template.twig' %}
+
+{% import 'Form.twig' as form %}
+
+{% block head %}
+    <title>Bonobo food</title>
+{% endblock %}
+
+{% block link %}
+    <li class="breadcrumb-item active" aria-current="page">Home</li>
+{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="row justify-content-md-center">
+                <div class="jumbotron bg-light">
+                    <h1 class="display-4">Commande - Vos coordonnées</h1>
+                    {% if err != "" %}
+                        <div class="alert alert-danger" role="alert">
+                            <strong>{{ err }}</strong>
+                        </div>
+                    {% endif %}
+                    <form id="user_form">
+                        {{ form.input("client_nom", "Nom") }}
+                        {{ form.input("client_prenom", "Prenom") }}
+                        {{ form.input("client_email", "Email", null, { type: "email" }) }}
+                        {{ form.input("client_telephone", "Telephone", null, { type: "phone" }) }}
+                        {{ form.check("client_newsletter", "Newsletter", true, { type: "checkbox" }) }}
+                        <hr class="my-4" />
+                        <div class="form-actions">
+                            <button type="button" id="button_user" class="btn btn-success" onclick="saveUser()"><i class="fa fa-check"></i> Suivant</button>
+                            <a class="btn btn-primary" href="./bonobo_index.html"><i class="fa fa-arrow-left"></i> Retour</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header bg-info text-light">
+                    <h2 ><i class="fa fa-cart-plus"></i> Mon Panier</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <ul class="list-group list-group-flush" id="panier_ligne"></ul>
+                        <ul class="list-group list-group-flush" id="menu_ligne"></ul>
+                    </p>
+                    <div class="alert alert-secondary" role="alert">
+                        Total: <span id="panier_montant"></span> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+<script src="./project/js/panier.js"></script>
+<script src="./project/js/createclient.js"></script>
+<script src="./project/js/commande.js"></script>
+{% endblock %}

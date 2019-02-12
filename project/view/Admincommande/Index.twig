@@ -1,0 +1,74 @@
+{% extends 'template.twig' %}
+{% import 'Form.twig' as form %}
+{% block head %}
+    <title>Bonobo food</title>
+{% endblock %}
+
+{% block link %}
+    <li class="breadcrumb-item " aria-current="page">Panneau d'administration</li>
+    <li class="breadcrumb-item " aria-current="page">View command</li>
+{% endblock %}
+
+{% block content %}
+    
+        <div class="col-xs-12">
+            <div class="row ligne">
+                {% for p in tab %}
+                    <div class="col-md-4">
+                        <div class="card border-info" >
+                        <div class="card-header bg-info"><h5 class="card-title text-light">Commande n°{{ p.ID_COMMANDE }}</h5></div>
+            
+                            <div class="card-body">
+                                <p class="card-text text-info">
+                                    Client: {{ p.NOM }} {{ p.PRENOM }}<br/>
+                                    Commande passé le {{ p.DATE_CREATION }}<br/>
+                                    Commande pour le {{ p.DATE_REC }}<br/>
+                                    Paiement {{ p.LIBELLE_PAIEMENT }}<br/>
+                                    {% if not p.COMMENTAIRE == null %}
+                                    Commentaire:<span> {{p.COMMENTAIRE}}</span>
+                                    <br/>
+                                    {% endif %}
+                                    Etat {{ p.ETAT == 2 ?'fin':'en cours' }}<br/>
+                                    {% if p.LIVRAISON == 1 %}
+                                        <hr />
+                                        LIVRAISON<br/>
+                                        Adresse {{ p.LIBELLE_ADRESSE }} {{ p.CODE_POSTAL }} {{ p.VILLE }}
+                                    {% endif %}
+                                    <hr />
+                                    <button class="btn btn-success" data-toggle="modal" data-target="#show" data-id="{{ p.ID_COMMANDE }}">detail</button>
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% if loop.index is divisible by(3) %}
+                        </div><div class="row ligne">
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="modal fade bd-example-modal-lg" id="show" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title" >Detail</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card border-info" >
+                        <div class="card-body" id="show_text">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+<script src="./project/js/admincommande_index.js"></script>
+{% endblock %}
